@@ -52,23 +52,74 @@ A **cloud-native microservices banking platform** demonstrating end-to-end DevOp
 ✅ Centralized log pipeline with **Fluent Bit + Elasticsearch + Kibana**
 
 ---
+⚙️ Setup Modes
 
-## 📂 Repository Structure
-My-BankingApp/
-├── alert_rules.yml
-├── docker-compose.yml
-├── fluent-bit.conf
-├── grafana/
-├── handler-service/
-├── infra/
-├── K8s/
-├── logs/
-├── processor-service/
-├── prometheus.yml
-├── push-to-ecr.sh
-├── traffic-generator/
-├── image.png
-├── README.md
+🧪 Local Environment (Docker Compose)
+	1.	Build and start all services
+    ```bash
+    docker compose up -d --build
+
+  2.	Access:
+	•	Handler Service: http://localhost:9191
+	•	Processor Service: http://localhost:9190
+	•	Prometheus: http://localhost:9095
+	•	Grafana: http://localhost:3000
+	•	Kibana: http://localhost:5601
+
+☁️ Cloud Deployment (AWS EKS via Terraform)
+
+  1.	Navigate to the infra directory
+     ```bash
+     cd infra
+     terraform init
+     terraform apply
+
+	2.	Deploy services
+      ```bash
+      kubectl apply -f K8s/
+
+  3.	Verify
+      ```bash
+      kubectl get pods -n banking
+      kubectl get svc -n banking
+    
+📝 Note: The AWS EKS cluster and ECR repositories used for this demo were later destroyed to avoid costs.
+You can recreate them easily using the included Terraform templates.
+⸻
+🔍 Monitoring & Logging
+
+Prometheus + Grafana
+	•	Prometheus scrapes metrics from:
+	•	/actuator/prometheus (Handler)
+	•	/metrics (Processor)
+	•	Grafana imports dashboards and visualizes metrics & alerts.
+
+Fluent Bit + ELK
+	•	Fluent Bit tails logs from /var/log/myapp/* and ships them to Elasticsearch.
+	•	Kibana visualizes the logs using the index pattern logstash-*.
+
+    ```bash
+    docker ps
+    docker logs -f fluentbit
+
+    # List targets scraped by Prometheus
+    curl -s http://localhost:9095/api/v1/targets | jq '.data.activeTargets[].labels.job'
+
+    # Check Grafana dashboards
+    http://localhost:3000
+⸻
+
+🚀 Outcome
+
+✅ Fully automated microservices banking app
+✅ Observable with real-time metrics and logs
+✅ Infrastructure as Code via Terraform
+✅ Demonstrates end-to-end DevOps workflow — from code → build → deploy → monitor
+
+
+⸻
+
+
 
 ## 🏁 Next Steps
 - Integrate CI/CD with GitHub Actions or Jenkins.  
