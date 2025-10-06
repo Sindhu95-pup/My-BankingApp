@@ -56,7 +56,7 @@ A **cloud-native microservices banking platform** demonstrating end-to-end DevOp
 
 🧪 Local Environment (Docker Compose)
 	1.	Build and start all services
-    ```bash
+    
     docker compose up -d --build
 
   2.	Access:
