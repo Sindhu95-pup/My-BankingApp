@@ -55,20 +55,20 @@ A **cloud-native microservices banking platform** demonstrating end-to-end DevOp
 
 ## 📂 Repository Structure
 My-BankingApp/
-│
-├── handler-service/
-├── processor-service/
-├── traffic-generator/
-├── infra/                # Terraform for VPC, EKS, IAM
-├── K8s/                  # Kubernetes manifests
-├── grafana/
-├── logs/
-├── docker-compose.yml
-├── prometheus.yml
 ├── alert_rules.yml
+├── docker-compose.yml
 ├── fluent-bit.conf
-└── README.md
----
+├── grafana/
+├── handler-service/
+├── infra/
+├── K8s/
+├── logs/
+├── processor-service/
+├── prometheus.yml
+├── push-to-ecr.sh
+├── traffic-generator/
+├── image.png
+├── README.md
 
 ## 🏁 Next Steps
 - Integrate CI/CD with GitHub Actions or Jenkins.  
