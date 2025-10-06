@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: handler-deployment
+  namespace: banking
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: handler
+  template:
+    metadata:
+      labels:
+        app: handler
+    spec:
+      tolerations:
+      - key: "eks.amazonaws.com/compute-type"
+        operator: "Equal"
+        value: "fargate"
+        effect: "NoSchedule"
+      containers:
+      - name: handler-service
+        image: 147356713436.dkr.ecr.eu-central-1.amazonaws.com/handler-service:latest
+        ports:
+        - containerPort: 9091
+        env:
+        - name: PROCESSOR_URL
+          value: "http://processor-service:9090/process"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 9091
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 9091
+          initialDelaySeconds: 15
+          periodSeconds: 20

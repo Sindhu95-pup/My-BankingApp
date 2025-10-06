@@ -1,0 +1,15 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: "handler"
+    metrics_path: "/actuator/prometheus"
+    static_configs:
+      - targets: ["handler:9091"]
+
+  - job_name: "processor"
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["processor:9090"]
+rule_files:
+  - "alert_rules.yml"

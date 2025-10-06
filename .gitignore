@@ -1,0 +1,48 @@
+# OS / IDE files
+.DS_Store
+.idea/
+.vscode/
+*.iml
+
+# Logs
+logs/
+*.log
+
+# Build artifacts
+**/target/
+**/bin/
+**/out/
+
+# Node or Python (if any scripts added later)
+node_modules/
+__pycache__/
+
+# Terraform files (state files contain sensitive data)
+infra/.terraform/
+infra/terraform.tfstate
+infra/terraform.tfstate.backup
+infra/*.tfstate*
+infra/.terraform.lock.hcl
+
+# Docker
+*.pid
+*.tar
+*.env
+.env
+
+# K8s
+*.yaml~
+*.bak
+kubeconfig
+
+# Images / temp files
+*.png~
+*.tmp
+
+# Backup configs
+*.old
+*.bak
+
+# Maven cache (if used locally)
+.mvn/
+.settings/

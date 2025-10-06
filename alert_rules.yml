@@ -1,0 +1,20 @@
+groups:
+  - name: service_alerts
+    rules:
+      - alert: HandlerDown
+        expr: up{job="handler"} == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Handler service is down"
+          description: "Prometheus has not received metrics from handler for 30s."
+
+      - alert: ProcessorDown
+        expr: up{job="processor"} == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Processor service is down"
+          description: "Prometheus has not received metrics from processor for 30s."
