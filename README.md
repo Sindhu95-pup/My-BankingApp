@@ -69,17 +69,17 @@ A **cloud-native microservices banking platform** demonstrating end-to-end DevOp
 ☁️ Cloud Deployment (AWS EKS via Terraform)
 
   1.	Navigate to the infra directory
-     ```bash
+     
      cd infra
      terraform init
      terraform apply
 
-	2.	Deploy services
-      ```bash
+  2.	Deploy services
+      
       kubectl apply -f K8s/
 
   3.	Verify
-      ```bash
+      
       kubectl get pods -n banking
       kubectl get svc -n banking
     
@@ -98,7 +98,7 @@ Fluent Bit + ELK
 	•	Fluent Bit tails logs from /var/log/myapp/* and ships them to Elasticsearch.
 	•	Kibana visualizes the logs using the index pattern logstash-*.
 
-    ```bash
+    
     docker ps
     docker logs -f fluentbit
 
